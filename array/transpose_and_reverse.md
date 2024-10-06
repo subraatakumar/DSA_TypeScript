@@ -52,3 +52,41 @@ function transposeAndReverseColumnsInPlace(matrix: number[][]): void {
 }
 ```
 
+# Solution
+
+```ts
+function transposeAndReverseColumnsInPlace(matrix: number[][]): void {
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+
+    // Step 1: Transpose the matrix in place
+    for (let i = 0; i < rows; i++) {
+        for (let j = i + 1; j < cols; j++) {
+            // Swap matrix[i][j] with matrix[j][i]
+            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+        }
+    }
+
+    console.log("transposed:", matrix)
+
+    // Step 2: Reverse each column in place
+    for (let col = 0; col < cols; col++) {
+        for (let row = 0; row < Math.floor(rows / 2); row++) {
+            // Swap the top and bottom elements within the same column
+            [matrix[row][col], matrix[rows - row - 1][col]] = 
+                [matrix[rows - row - 1][col], matrix[row][col]];
+        }
+    }
+}
+
+// Example usage
+const matrix = [
+    [8, 2, 3],
+    [2, 9, 1],
+    [9, 0, 6]
+];
+
+transposeAndReverseColumnsInPlace(matrix);
+
+console.log(matrix);
+```
